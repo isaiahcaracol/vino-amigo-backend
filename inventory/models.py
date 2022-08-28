@@ -23,6 +23,10 @@ class Product(models.Model):
   def __str__(self):
     return self.name
 
+class Transaction(models.Model):
+  total = models.DecimalField(max_digits=9,decimal_places=2)
 
-class Purchase(models.Model):
-  pass
+class SoldProduct(models.Model):
+  transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name="sold_products")
+  product = models.ForeignKey(Product, on_delete=models.CASCADE)
+  quantity = models.IntegerField()

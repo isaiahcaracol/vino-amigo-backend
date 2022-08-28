@@ -25,6 +25,8 @@ from users.views import CustomObtainAuthToken
 
 router = routers.DefaultRouter()
 router.register(r'products', inventory_views.ProductViewSet, 'product')
+router.register(r'transactions', inventory_views.TransactionViewSet, 'transactions')
+router.register(r'sold-products', inventory_views.SoldProductViewSet, 'sold-products')
 router.register(r'users', user_views.UserViewSet, 'users')
 
 urlpatterns = [
