@@ -26,8 +26,3 @@ class TransactionViewSet(viewsets.ModelViewSet):
   permission_classes = (IsAuthenticated,)
   serializer_class = TransactionSerializer
   queryset = Transaction.objects.all()
-
-class SoldProductViewSet(viewsets.ModelViewSet):
-  permission_classes = (IsAuthenticated,)
-  serializer_class = SoldProductSerializer
-  queryset = SoldProduct.objects.all()
