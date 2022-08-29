@@ -26,3 +26,18 @@ class TransactionViewSet(viewsets.ModelViewSet):
   permission_classes = (IsAuthenticated,)
   serializer_class = TransactionSerializer
   queryset = Transaction.objects.all()
+
+  def create(self, request, *args, **kwargs):
+    sold_products = request.data.pop('sold_products')
+    serializer = TransactionSerializer(data=request.data)
+
+    if serializer.is_valid():
+      transaction = serializer.save()
+
+      for product in sold_products:
+        product_instance = Product.objects.get(id=product.pop('product'))
+        SoldProduct.objects.create(transaction=transaction, product=product_instance, **product)
+
+      return Response({'response': 'saved'}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
